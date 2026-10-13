@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node / frontend
+node_modules/
+dist/
+.vite/
+npm-debug.log*
+
+# Ambiente e segreti
+.env
+.env.*
+!.env.example
+*.pem
+kubeconfig
+*.kubeconfig
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+terraform.tfvars
+!terraform.tfvars.example
+
+# Ansible
+*.retry
+inventory.generated.ini
+
+# Editor e sistema
+.vscode/
+.idea/
+.DS_Store
