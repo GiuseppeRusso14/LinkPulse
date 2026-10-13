@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>LinkPulse</title>
+<meta name="author" content="Giuseppe Russo">
+<style>
+  @page { size: 1920px 1080px; margin: 0; }
+  :root {
+    --ink: #1e293b; --text: #334155; --muted: #64748b; --line: #e2e8f0;
+    --blue: #3b4fd8; --blue-s: #eef1fd;
+    --teal: #0f766e; --teal-s: #effaf8;
+    --amber: #b45309; --amber-s: #fdf8ec;
+    --rose: #be185d; --rose-s: #fcf1f6;
+    --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body { font-family: var(--sans); color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; counter-reset: slide; }
+
+  .slide {
+    width: 1920px; height: 1080px; position: relative; overflow: hidden;
+    padding: 80px 120px 110px; background: #fff;
+    break-after: page; page-break-after: always; counter-increment: slide;
+    display: flex; flex-direction: column;
+  }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .foot {
+    position: absolute; left: 120px; right: 120px; bottom: 44px;
+    display: flex; justify-content: space-between; font-size: 18px; color: var(--muted);
+  }
+  .foot .num::after { content: counter(slide); }
+
+  h1 { font-size: 54px; font-weight: 700; margin: 0 0 14px; letter-spacing: -0.01em; }
+  .bar { width: 90px; height: 5px; background: var(--blue); margin-bottom: 44px; }
+  p { font-size: 28px; line-height: 1.5; color: var(--text); margin: 0 0 20px; }
+  ul { margin: 0; padding-left: 34px; }
+  li { font-size: 28px; line-height: 1.5; color: var(--text); margin-bottom: 12px; }
+  li::marker { color: var(--blue); }
+  code { font-family: var(--mono); font-size: .9em; }
+  .note { font-size: 24px; color: var(--muted); margin-top: 26px; }
+  .cols { display: grid; gap: 60px; }
+  .cols h2 { font-size: 32px; margin: 0 0 14px; }
+  .cols p { font-size: 26px; }
+
+  .stack > div { padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .stack > div:first-child { padding-top: 0; }
+  .stack > div:last-child { border-bottom: 0; }
+  .stack h2 { font-size: 34px; margin: 0 0 10px; }
+  .stack p { margin: 0; max-width: 1500px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-size: 22px; color: var(--muted); font-weight: 600; padding: 0 20px 14px 0; border-bottom: 2px solid var(--ink); }
+  td { font-size: 25px; color: var(--text); padding: 16px 20px 16px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { color: var(--ink); font-weight: 600; }
+
+  svg text { font-family: var(--sans); }
+  .sv-t { font-size: 21px; font-weight: 700; fill: var(--ink); }
+  .sv-s { font-size: 17px; fill: var(--muted); }
+  .sv-h { font-size: 17px; font-weight: 600; fill: var(--muted); }
+  .sv-l { font-size: 17px; font-weight: 500; fill: var(--text); paint-order: stroke; stroke: #fff; stroke-width: 7px; stroke-linejoin: round; }
+  .ar { stroke: #475569; stroke-width: 2.2; fill: none; marker-end: url(#ah); }
+  .ar-d { stroke: #475569; stroke-width: 2; fill: none; stroke-dasharray: 7 6; marker-end: url(#ah); }
+  .ar-r { stroke: var(--rose); stroke-width: 2.4; fill: none; marker-end: url(#ahr); }
+
+  .cover { justify-content: center; padding-left: 160px; }
+  .cover h1 { font-size: 120px; margin: 30px 0 16px; letter-spacing: -0.02em; }
+  .cover .sub { font-size: 38px; color: var(--text); margin: 0 0 50px; line-height: 1.35; }
+  .cover .info { font-size: 28px; color: var(--text); line-height: 1.6; }
+  .cover .who { position: absolute; left: 160px; bottom: 110px; font-size: 30px; }
+  .cover .who b { display: block; margin-bottom: 6px; }
+  .cover .who span { color: var(--muted); font-size: 26px; }
+  .cover .edge { position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--blue); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#be185d"/></marker>
+  </defs>
+</svg>
+
+<!-- 1 · Copertina -->
+<section class="slide cover">
+  <div class="edge"></div>
+  <svg width="120" height="120" viewBox="0 0 150 150" aria-label="Logo LinkPulse">
+    <g transform="rotate(-45 75 75)" fill="none" stroke="#3b4fd8" stroke-width="15" stroke-linecap="round">
+      <rect x="8" y="50" width="78" height="50" rx="25"/>
+      <rect x="64" y="50" width="78" height="50" rx="25"/>
+    </g>
+    <polyline points="14,82 52,82 64,58 78,108 92,40 104,82 136,82" fill="none" stroke="#ffffff" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="14,82 52,82 64,58 78,108 92,40 104,82 136,82" fill="none" stroke="#1e293b" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+  <h1>LinkPulse</h1>
+  <div class="sub">URL shortener con statistiche dei click,<br>realizzato a microservizi su Kubernetes e AWS</div>
+  <div class="info">
+    Progetto per il corso di Sistemi Cloud – A.A. 2026/2027<br>
+    Corso di Laurea Magistrale in Informatica – Università degli Studi di Catania
+  </div>
+  <div class="who"><b>Giuseppe Russo</b><span>Matricola 1000003546</span></div>
+</section>
+
+<!-- 2 · Il progetto -->
+<section class="slide">
+  <h1>Cos'è LinkPulse</h1>
+  <div class="bar"></div>
+  <p>LinkPulse è un servizio che accorcia gli indirizzi web e tiene traccia di quante volte e da dove vengono aperti. L'utente registrato può:</p>
+  <ul>
+    <li>creare link brevi, anche con un nome scelto da lui e una data di scadenza</li>
+    <li>condividerli: chi apre il link viene reindirizzato all'indirizzo originale</li>
+    <li>vedere per ogni link il numero di click nel tempo, i dispositivi, i browser e la provenienza</li>
+  </ul>
+  <p style="margin-top:44px">L'obiettivo del progetto è realizzare l'applicazione come insieme di microservizi in container, distribuirla prima su un cluster Kubernetes locale e poi su AWS con servizi gestiti, automatizzando infrastruttura e rilasci.</p>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 3 · Architettura -->
+<section class="slide">
+  <h1>Architettura dell'applicazione</h1>
+  <div class="bar" style="margin-bottom:30px"></div>
+  <svg width="1680" height="700" viewBox="0 0 1700 710" aria-label="Architettura a tre livelli">
+    <text x="0" y="42" class="sv-h">Client</text>
+    <text x="0" y="178" class="sv-h">Ingresso</text>
+    <text x="0" y="340" class="sv-h">Presentazione</text>
+    <text x="0" y="364" class="sv-h">e logica</text>
+    <text x="0" y="620" class="sv-h">Dati</text>
+
+    <rect x="180" y="112" width="1410" height="596" rx="18" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="10 8"/>
+    <text x="1574" y="696" text-anchor="end" class="sv-s">cluster Kubernetes</text>
+
+    <rect x="745" y="0" width="280" height="70" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="885" y="43" text-anchor="middle" class="sv-t">Browser</text>
+    <path d="M885 72 L885 132" class="ar"/>
+
+    <rect x="200" y="136" width="1370" height="70" rx="12" fill="#1e293b"/>
+    <text x="885" y="179" text-anchor="middle" fill="#fff" font-size="21" font-weight="600">Ingress (nginx)</text>
+
+    <path d="M315 208 L315 266" class="ar"/>
+    <path d="M600 208 L600 266" class="ar"/>
+    <path d="M885 208 L885 266" class="ar"/>
+    <path d="M1170 208 L1170 266" class="ar"/>
+    <path d="M1455 208 L1455 266" class="ar"/>
+
+    <rect x="200" y="270" width="230" height="140" rx="14" fill="#eef1fd" stroke="#3b4fd8" stroke-width="2"/>
+    <text x="315" y="332" text-anchor="middle" class="sv-t">frontend</text>
+    <text x="315" y="360" text-anchor="middle" class="sv-s">React</text>
+    <rect x="485" y="270" width="230" height="140" rx="14" fill="#effaf8" stroke="#0f766e" stroke-width="2"/>
+    <text x="600" y="332" text-anchor="middle" class="sv-t">auth-service</text>
+    <text x="600" y="360" text-anchor="middle" class="sv-s">Flask</text>
+    <rect x="770" y="270" width="230" height="140" rx="14" fill="#effaf8" stroke="#0f766e" stroke-width="2"/>
+    <text x="885" y="332" text-anchor="middle" class="sv-t">links-service</text>
+    <text x="885" y="360" text-anchor="middle" class="sv-s">Flask</text>
+    <rect x="1055" y="270" width="230" height="140" rx="14" fill="#effaf8" stroke="#0f766e" stroke-width="2"/>
+    <text x="1170" y="332" text-anchor="middle" class="sv-t">redirect-service</text>
+    <text x="1170" y="360" text-anchor="middle" class="sv-s">Flask</text>
+    <rect x="1340" y="270" width="230" height="140" rx="14" fill="#effaf8" stroke="#0f766e" stroke-width="2"/>
+    <text x="1455" y="332" text-anchor="middle" class="sv-t">analytics-service</text>
+    <text x="1455" y="360" text-anchor="middle" class="sv-s">Flask</text>
+
+    <path d="M1055 340 L1004 340" class="ar-d"/>
+
+    <rect x="870" y="495" width="230" height="84" rx="14" fill="#fdf8ec" stroke="#b45309" stroke-width="2"/>
+    <text x="985" y="532" text-anchor="middle" class="sv-t">Redis</text>
+    <text x="985" y="558" text-anchor="middle" class="sv-s">cache</text>
+    <rect x="1190" y="495" width="230" height="84" rx="14" fill="#fcf1f6" stroke="#be185d" stroke-width="2"/>
+    <text x="1305" y="532" text-anchor="middle" class="sv-t">RabbitMQ</text>
+    <text x="1305" y="558" text-anchor="middle" class="sv-s">coda dei click</text>
+
+    <rect x="200" y="610" width="1370" height="64" rx="14" fill="#fdf8ec" stroke="#b45309" stroke-width="2"/>
+    <text x="885" y="650" text-anchor="middle" class="sv-t">PostgreSQL</text>
+
+    <path d="M600 412 L600 606" class="ar"/>
+    <path d="M800 412 L800 606" class="ar"/>
+    <path d="M930 412 L930 491" class="ar"/>
+    <path d="M1075 412 L1075 491" class="ar"/>
+    <path d="M1240 412 L1240 491" class="ar-r"/>
+    <path d="M1400 493 L1400 414" class="ar-r"/>
+    <path d="M1530 412 L1530 606" class="ar"/>
+  </svg>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 4 · Microservizi -->
+<section class="slide">
+  <h1>Microservizi e dati</h1>
+  <div class="bar"></div>
+  <table>
+    <thead><tr><th style="width:26%">Servizio</th><th>Compito</th></tr></thead>
+    <tbody>
+      <tr><td>frontend</td><td>Interfaccia web: login, gestione dei link, dashboard con i grafici</td></tr>
+      <tr><td>auth-service</td><td>Registrazione e login degli utenti, rilascio del token JWT</td></tr>
+      <tr><td>links-service</td><td>Creazione, modifica ed eliminazione dei link</td></tr>
+      <tr><td>redirect-service</td><td>Riceve il link breve, reindirizza all'indirizzo originale e segnala il click</td></tr>
+      <tr><td>analytics-service</td><td>Elabora i click ricevuti dalla coda e calcola le statistiche</td></tr>
+    </tbody>
+  </table>
+  <table style="margin-top:50px">
+    <thead><tr><th style="width:26%">Componente</th><th>Ruolo</th></tr></thead>
+    <tbody>
+      <tr><td>PostgreSQL</td><td>Database principale con utenti, link e click; ogni servizio usa il proprio schema</td></tr>
+      <tr><td>Redis</td><td>Cache degli indirizzi più richiesti, per non interrogare il database a ogni click</td></tr>
+      <tr><td>RabbitMQ</td><td>Coda degli eventi di click tra redirect-service e analytics-service</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 5 · Flusso di un click -->
+<section class="slide">
+  <h1>Cosa succede a ogni click</h1>
+  <div class="bar" style="margin-bottom:30px"></div>
+  <svg width="1680" height="620" viewBox="0 0 1700 628" aria-label="Sequenza di un click">
+    <g>
+      <rect x="10" y="0" width="180" height="54" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><text x="100" y="34" text-anchor="middle" class="sv-t" style="font-size:19px">Browser</text>
+      <rect x="255" y="0" width="190" height="54" rx="10" fill="#effaf8" stroke="#0f766e" stroke-width="2"/><text x="350" y="34" text-anchor="middle" class="sv-t" style="font-size:19px">redirect</text>
+      <rect x="510" y="0" width="180" height="54" rx="10" fill="#fdf8ec" stroke="#b45309" stroke-width="2"/><text x="600" y="34" text-anchor="middle" class="sv-t" style="font-size:19px">Redis</text>
+      <rect x="755" y="0" width="190" height="54" rx="10" fill="#effaf8" stroke="#0f766e" stroke-width="2"/><text x="850" y="34" text-anchor="middle" class="sv-t" style="font-size:19px">links</text>
+      <rect x="1010" y="0" width="180" height="54" rx="10" fill="#fcf1f6" stroke="#be185d" stroke-width="2"/><text x="1100" y="34" text-anchor="middle" class="sv-t" style="font-size:19px">RabbitMQ</text>
+      <rect x="1255" y="0" width="190" height="54" rx="10" fill="#effaf8" stroke="#0f766e" stroke-width="2"/><text x="1350" y="34" text-anchor="middle" class="sv-t" style="font-size:19px">analytics</text>
+      <rect x="1510" y="0" width="180" height="54" rx="10" fill="#fdf8ec" stroke="#b45309" stroke-width="2"/><text x="1600" y="34" text-anchor="middle" class="sv-t" style="font-size:19px">PostgreSQL</text>
+    </g>
+    <g stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 6">
+      <line x1="100" y1="56" x2="100" y2="625"/><line x1="350" y1="56" x2="350" y2="625"/><line x1="600" y1="56" x2="600" y2="625"/>
+      <line x1="850" y1="56" x2="850" y2="625"/><line x1="1100" y1="56" x2="1100" y2="625"/><line x1="1350" y1="56" x2="1350" y2="625"/><line x1="1600" y1="56" x2="1600" y2="625"/>
+    </g>
+
+    <path d="M100 104 L346 104" class="ar"/><text x="225" y="92" text-anchor="middle" class="sv-l">1. apre il link breve</text>
+    <path d="M350 152 L596 152" class="ar"/><text x="475" y="140" text-anchor="middle" class="sv-l">2. cerca in cache</text>
+    <path d="M600 196 L354 196" class="ar-d"/><text x="475" y="184" text-anchor="middle" class="sv-l">indirizzo</text>
+
+    <rect x="300" y="220" width="600" height="128" rx="8" fill="none" stroke="#94a3b8" stroke-width="2"/>
+    <text x="314" y="244" class="sv-l" style="fill:#64748b; font-size:16px">se non è in cache</text>
+    <path d="M350 270 L846 270" class="ar"/><text x="640" y="260" text-anchor="middle" class="sv-l">3. chiede l'indirizzo</text>
+    <path d="M850 302 L354 302" class="ar-d"/>
+    <path d="M350 334 L596 334" class="ar"/><text x="475" y="324" text-anchor="middle" class="sv-l">lo salva in cache</text>
+
+    <path d="M350 392 L1096 392" class="ar-r"/><text x="725" y="380" text-anchor="middle" class="sv-l" style="fill:#be185d">4. pubblica l'evento di click</text>
+    <path d="M350 440 L104 440" class="ar-d"/><text x="225" y="428" text-anchor="middle" class="sv-l">5. redirect (302)</text>
+
+    <line x1="0" y1="482" x2="1700" y2="482" stroke="#be185d" stroke-width="1.6" stroke-dasharray="10 8"/>
+    <text x="1694" y="472" text-anchor="end" class="sv-s" style="fill:#be185d">in modo asincrono</text>
+
+    <path d="M1100 526 L1346 526" class="ar-r"/><text x="1225" y="514" text-anchor="middle" class="sv-l" style="fill:#be185d">6. legge l'evento</text>
+    <path d="M1350 568 L1596 568" class="ar"/><text x="1475" y="556" text-anchor="middle" class="sv-l">7. salva il click</text>
+    <path d="M1350 608 L1104 608" class="ar-d"/><text x="1225" y="598" text-anchor="middle" class="sv-l">8. conferma</text>
+  </svg>
+  <p class="note" style="margin-top:10px">L'utente riceve il redirect senza aspettare il salvataggio del click: l'evento resta in coda finché analytics-service non lo elabora.</p>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 7 · Deployment locale -->
+<section class="slide">
+  <h1>Deployment locale</h1>
+  <div class="bar" style="margin-bottom:30px"></div>
+  <svg width="1680" height="500" viewBox="0 0 1700 506" aria-label="Deployment locale su Multipass">
+    <rect x="0" y="0" width="1700" height="506" rx="18" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="30" y="40" class="sv-h">Computer di sviluppo</text>
+
+    <rect x="30" y="100" width="380" height="140" rx="14" fill="#f7f5fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="54" y="146" class="sv-t" style="fill:#6d28d9">Terraform</text>
+    <text x="54" y="180" class="sv-s" style="font-size:19px">crea le tre macchine virtuali</text>
+    <rect x="30" y="290" width="380" height="140" rx="14" fill="#fef4f4" stroke="#dc2626" stroke-width="2"/>
+    <text x="54" y="336" class="sv-t" style="fill:#b91c1c">Ansible</text>
+    <text x="54" y="370" class="sv-s" style="font-size:19px">installa Kubernetes</text>
+    <text x="54" y="396" class="sv-s" style="font-size:19px">e distribuisce l'applicazione</text>
+    <path d="M412 170 L476 170" class="ar"/>
+    <path d="M412 360 L476 360" class="ar"/>
+
+    <rect x="480" y="56" width="1194" height="426" rx="16" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="10 8"/>
+    <text x="504" y="88" class="sv-h">Multipass – VM Ubuntu</text>
+
+    <g font-size="17" font-weight="500">
+      <rect x="504" y="108" width="370" height="252" rx="14" fill="#fff" stroke="#3b4fd8" stroke-width="2"/>
+      <text x="526" y="146" class="sv-t">lp-master</text>
+      <text x="526" y="172" class="sv-s">control plane</text>
+      <rect x="526" y="196" width="326" height="40" rx="8" fill="#eef1fd"/><text x="542" y="222" fill="#3b4fd8">API server</text>
+      <rect x="526" y="244" width="326" height="40" rx="8" fill="#eef1fd"/><text x="542" y="270" fill="#3b4fd8">etcd</text>
+      <rect x="526" y="292" width="326" height="40" rx="8" fill="#eef1fd"/><text x="542" y="318" fill="#3b4fd8">scheduler, controller manager</text>
+
+      <rect x="894" y="108" width="370" height="252" rx="14" fill="#fff" stroke="#0f766e" stroke-width="2"/>
+      <text x="916" y="146" class="sv-t">lp-worker-1</text>
+      <text x="916" y="172" class="sv-s">nodo worker</text>
+      <rect x="916" y="196" width="326" height="40" rx="8" fill="#effaf8"/><text x="932" y="222" fill="#0f766e">frontend, auth-service</text>
+      <rect x="916" y="244" width="326" height="40" rx="8" fill="#effaf8"/><text x="932" y="270" fill="#0f766e">redirect-service</text>
+      <rect x="916" y="292" width="326" height="40" rx="8" fill="#fdf8ec"/><text x="932" y="318" fill="#b45309">PostgreSQL</text>
+
+      <rect x="1284" y="108" width="370" height="252" rx="14" fill="#fff" stroke="#0f766e" stroke-width="2"/>
+      <text x="1306" y="146" class="sv-t">lp-worker-2</text>
+      <text x="1306" y="172" class="sv-s">nodo worker</text>
+      <rect x="1306" y="196" width="326" height="40" rx="8" fill="#effaf8"/><text x="1322" y="222" fill="#0f766e">links-service, analytics-service</text>
+      <rect x="1306" y="244" width="326" height="40" rx="8" fill="#effaf8"/><text x="1322" y="270" fill="#0f766e">redirect-service</text>
+      <rect x="1306" y="292" width="326" height="40" rx="8" fill="#fdf8ec"/><text x="1322" y="318" fill="#b45309">Redis, RabbitMQ</text>
+    </g>
+
+    <rect x="504" y="384" width="1150" height="64" rx="12" fill="#f0f9fb" stroke="#0891b2" stroke-width="2"/>
+    <text x="1079" y="423" text-anchor="middle" class="sv-t" style="fill:#0e7490; font-size:19px">Rete dei pod (Flannel) e Ingress</text>
+  </svg>
+  <p class="note" style="margin-top:20px">Le immagini dei servizi vengono costruite con Docker e scaricate dai nodi; la configurazione dei servizi è descritta con manifest Kubernetes.</p>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 8 · Deployment AWS -->
+<section class="slide">
+  <h1>Deployment su AWS</h1>
+  <div class="bar" style="margin-bottom:26px"></div>
+  <svg width="1680" height="700" viewBox="0 0 1700 708" aria-label="Deployment su AWS">
+    <rect x="158" y="0" width="1542" height="708" rx="18" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="1680" y="30" text-anchor="end" class="sv-h">Regione us-east-1</text>
+
+    <rect x="0" y="180" width="130" height="76" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="65" y="225" text-anchor="middle" class="sv-t" style="font-size:19px">Utenti</text>
+    <path d="M132 218 L184 218" class="ar"/>
+
+    <rect x="210" y="40" width="1090" height="650" rx="16" fill="none" stroke="#7c3aed" stroke-width="2"/>
+    <text x="230" y="68" class="sv-h" style="fill:#6d28d9">VPC 10.0.0.0/16</text>
+    <rect x="186" y="190" width="64" height="56" rx="10" fill="#7c3aed"/>
+    <text x="218" y="224" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">IGW</text>
+    <path d="M252 218 L286 218" class="ar"/>
+
+    <rect x="272" y="80" width="500" height="596" rx="12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 7"/>
+    <rect x="790" y="80" width="496" height="596" rx="12" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="756" y="104" text-anchor="end" class="sv-s">zona us-east-1a</text>
+    <text x="1270" y="104" text-anchor="end" class="sv-s">zona us-east-1b</text>
+
+    <rect x="286" y="116" width="472" height="138" rx="10" fill="#f2fbf5" stroke="#86efac" stroke-width="2"/>
+    <rect x="804" y="116" width="468" height="138" rx="10" fill="#f2fbf5" stroke="#86efac" stroke-width="2"/>
+    <text x="302" y="142" class="sv-s" style="fill:#15803d">subnet pubblica 10.0.0.0/24</text>
+    <text x="820" y="142" class="sv-s" style="fill:#15803d">subnet pubblica 10.0.1.0/24</text>
+    <rect x="600" y="124" width="144" height="36" rx="8" fill="#15803d"/>
+    <text x="672" y="148" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">NAT Gateway</text>
+    <rect x="302" y="180" width="954" height="58" rx="10" fill="#fff" stroke="#15803d" stroke-width="2"/>
+    <text x="779" y="216" text-anchor="middle" class="sv-t" style="font-size:19px">Load Balancer</text>
+
+    <rect x="286" y="270" width="472" height="214" rx="10" fill="#f1f6fe" stroke="#93c5fd" stroke-width="2"/>
+    <rect x="804" y="270" width="468" height="214" rx="10" fill="#f1f6fe" stroke="#93c5fd" stroke-width="2"/>
+    <text x="302" y="296" class="sv-s" style="fill:#1d4ed8">subnet privata 10.0.10.0/24</text>
+    <text x="820" y="296" class="sv-s" style="fill:#1d4ed8">subnet privata 10.0.11.0/24</text>
+    <rect x="302" y="312" width="954" height="158" rx="10" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="9 6"/>
+    <text x="330" y="458" class="sv-s" style="fill:#1d4ed8">Auto Scaling Group (da 1 a 3 nodi)</text>
+    <rect x="330" y="328" width="400" height="100" rx="10" fill="#fff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="530" y="372" text-anchor="middle" class="sv-t" style="font-size:19px">Nodo EKS (EC2)</text>
+    <text x="530" y="400" text-anchor="middle" class="sv-s">container dei servizi</text>
+    <rect x="840" y="328" width="400" height="100" rx="10" fill="#fff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="1040" y="372" text-anchor="middle" class="sv-t" style="font-size:19px">Nodo EKS (EC2)</text>
+    <text x="1040" y="400" text-anchor="middle" class="sv-s">container dei servizi</text>
+
+    <rect x="286" y="500" width="472" height="162" rx="10" fill="#fdf8ec" stroke="#fcd34d" stroke-width="2"/>
+    <rect x="804" y="500" width="468" height="162" rx="10" fill="#fdf8ec" stroke="#fcd34d" stroke-width="2"/>
+    <text x="302" y="526" class="sv-s" style="fill:#b45309">subnet dati 10.0.20.0/24</text>
+    <text x="820" y="526" class="sv-s" style="fill:#b45309">subnet dati 10.0.21.0/24</text>
+    <rect x="302" y="546" width="210" height="96" rx="10" fill="#fff" stroke="#b45309" stroke-width="2"/>
+    <text x="407" y="588" text-anchor="middle" class="sv-t" style="font-size:19px">RDS</text>
+    <text x="407" y="614" text-anchor="middle" class="sv-s">PostgreSQL</text>
+    <rect x="530" y="546" width="212" height="96" rx="10" fill="#fff" stroke="#b45309" stroke-width="2"/>
+    <text x="636" y="588" text-anchor="middle" class="sv-t" style="font-size:19px">ElastiCache</text>
+    <text x="636" y="614" text-anchor="middle" class="sv-s">Redis</text>
+    <rect x="820" y="546" width="212" height="96" rx="10" fill="#fff" stroke="#be185d" stroke-width="2"/>
+    <text x="926" y="588" text-anchor="middle" class="sv-t" style="font-size:19px">Amazon MQ</text>
+    <text x="926" y="614" text-anchor="middle" class="sv-s">RabbitMQ</text>
+
+    <g>
+      <rect x="1330" y="60" width="350" height="90" rx="12" fill="#fff8f1" stroke="#c2410c" stroke-width="2"/>
+      <text x="1352" y="98" class="sv-t" style="font-size:19px">EKS</text>
+      <text x="1352" y="126" class="sv-s">control plane gestito</text>
+      <rect x="1330" y="170" width="350" height="90" rx="12" fill="#fff8f1" stroke="#c2410c" stroke-width="2"/>
+      <text x="1352" y="208" class="sv-t" style="font-size:19px">ECR</text>
+      <text x="1352" y="236" class="sv-s">immagini dei container</text>
+      <rect x="1330" y="280" width="350" height="90" rx="12" fill="#fff8f1" stroke="#c2410c" stroke-width="2"/>
+      <text x="1352" y="318" class="sv-t" style="font-size:19px">S3</text>
+      <text x="1352" y="346" class="sv-s">stato di Terraform</text>
+      <rect x="1330" y="420" width="350" height="90" rx="12" fill="#fff8f1" stroke="#c2410c" stroke-width="2"/>
+      <text x="1352" y="458" class="sv-t" style="font-size:19px">CloudWatch</text>
+      <text x="1352" y="486" class="sv-s">metriche e allarmi</text>
+      <rect x="1330" y="560" width="350" height="90" rx="12" fill="#fff8f1" stroke="#c2410c" stroke-width="2"/>
+      <text x="1352" y="598" class="sv-t" style="font-size:19px">SNS</text>
+      <text x="1352" y="626" class="sv-s">notifiche email</text>
+    </g>
+    <path d="M1505 512 L1505 556" class="ar"/>
+  </svg>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 9 · Locale → AWS -->
+<section class="slide">
+  <h1>Dal cluster locale ad AWS</h1>
+  <div class="bar"></div>
+  <table>
+    <thead><tr><th style="width:26%">Componente</th><th style="width:37%">Locale</th><th>AWS</th></tr></thead>
+    <tbody>
+      <tr><td>Kubernetes</td><td>cluster kubeadm su 3 VM Multipass</td><td>Amazon EKS</td></tr>
+      <tr><td>PostgreSQL</td><td>container nel cluster</td><td>Amazon RDS</td></tr>
+      <tr><td>Redis</td><td>container nel cluster</td><td>Amazon ElastiCache</td></tr>
+      <tr><td>RabbitMQ</td><td>container nel cluster</td><td>Amazon MQ</td></tr>
+      <tr><td>Immagini</td><td>GitHub Container Registry</td><td>Amazon ECR</td></tr>
+      <tr><td>Monitoraggio</td><td>metrics-server</td><td>CloudWatch e SNS</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Il codice dei servizi resta lo stesso: cambiano solo gli indirizzi di database, cache e coda nella configurazione.</p>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 10 · Automazione -->
+<section class="slide">
+  <h1>Infrastructure as Code e CI/CD</h1>
+  <div class="bar"></div>
+  <div class="stack">
+    <div><h2 style="color:#6d28d9">Terraform</h2><p>In locale crea le macchine virtuali su Multipass. Su AWS crea la rete, il cluster EKS, il database, la cache, la coda e gli allarmi; lo stato è salvato su S3.</p></div>
+    <div><h2 style="color:#b91c1c">Ansible</h2><p>Installa e configura Kubernetes sulle macchine virtuali e distribuisce l'applicazione nel cluster, sia in locale sia su EKS.</p></div>
+    <div><h2>GitHub Actions</h2><p>A ogni pull request esegue i test e la build delle immagini. Dopo il merge su <code>main</code> pubblica le immagini su ECR e aggiorna il cluster.</p></div>
+  </div>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+<!-- 11 · Argomenti del corso -->
+<section class="slide">
+  <h1>Argomenti del corso nel progetto</h1>
+  <div class="bar"></div>
+  <table>
+    <thead><tr><th style="width:36%">Argomento</th><th>Dove compare</th></tr></thead>
+    <tbody>
+      <tr><td>IAM</td><td>ruoli di EKS, security group, segreti Kubernetes</td></tr>
+      <tr><td>EC2</td><td>nodi del cluster EKS</td></tr>
+      <tr><td>S3</td><td>stato di Terraform</td></tr>
+      <tr><td>Networking</td><td>VPC con subnet pubbliche, private e per i dati</td></tr>
+      <tr><td>CLI</td><td>aws cli, kubectl, terraform, ansible</td></tr>
+      <tr><td>Load balancing e auto scaling</td><td>Load Balancer, autoscaling dei pod e dei nodi, allarmi SNS</td></tr>
+      <tr><td>Cloud privati</td><td>cluster locale su Multipass</td></tr>
+      <tr><td>Container e Kubernetes</td><td>Docker, cluster locale, EKS</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
+</section>
+
+</body>
+</html>
