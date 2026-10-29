@@ -254,39 +254,40 @@
 <section class="slide">
   <h1>Deployment locale</h1>
   <div class="bar" style="margin-bottom:30px"></div>
-  <svg width="1680" height="500" viewBox="0 0 1700 506" aria-label="Deployment locale su Multipass">
-    <rect x="0" y="0" width="1700" height="506" rx="18" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <svg width="1680" height="548" viewBox="0 0 1700 554" aria-label="Deployment locale su Multipass">
+    <rect x="0" y="0" width="1700" height="554" rx="18" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
     <text x="30" y="40" class="sv-h">Computer di sviluppo</text>
 
-    <rect x="30" y="100" width="380" height="140" rx="14" fill="#f7f5fe" stroke="#7c3aed" stroke-width="2"/>
-    <text x="54" y="146" class="sv-t" style="fill:#6d28d9">Terraform</text>
-    <text x="54" y="180" class="sv-s" style="font-size:19px">crea le tre macchine virtuali</text>
-    <rect x="30" y="290" width="380" height="140" rx="14" fill="#fef4f4" stroke="#dc2626" stroke-width="2"/>
-    <text x="54" y="336" class="sv-t" style="fill:#b91c1c">Ansible</text>
-    <text x="54" y="370" class="sv-s" style="font-size:19px">installa Kubernetes</text>
-    <text x="54" y="396" class="sv-s" style="font-size:19px">e distribuisce l'applicazione</text>
-    <path d="M412 170 L476 170" class="ar"/>
-    <path d="M412 360 L476 360" class="ar"/>
+    <rect x="30" y="110" width="380" height="140" rx="14" fill="#f7f5fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="54" y="156" class="sv-t" style="fill:#6d28d9">Terraform</text>
+    <text x="54" y="190" class="sv-s" style="font-size:19px">crea le tre macchine virtuali</text>
+    <rect x="30" y="320" width="380" height="140" rx="14" fill="#fef4f4" stroke="#dc2626" stroke-width="2"/>
+    <text x="54" y="366" class="sv-t" style="fill:#b91c1c">Ansible</text>
+    <text x="54" y="400" class="sv-s" style="font-size:19px">installa Kubernetes e Jenkins</text>
+    <text x="54" y="426" class="sv-s" style="font-size:19px">e distribuisce l'applicazione</text>
+    <path d="M412 180 L476 180" class="ar"/>
+    <path d="M412 390 L476 390" class="ar"/>
 
-    <rect x="480" y="56" width="1194" height="426" rx="16" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="10 8"/>
+    <rect x="480" y="56" width="1194" height="474" rx="16" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="10 8"/>
     <text x="504" y="88" class="sv-h">Multipass – VM Ubuntu</text>
 
     <g font-size="17" font-weight="500">
-      <rect x="504" y="108" width="370" height="252" rx="14" fill="#fff" stroke="#3b4fd8" stroke-width="2"/>
+      <rect x="504" y="108" width="370" height="300" rx="14" fill="#fff" stroke="#3b4fd8" stroke-width="2"/>
       <text x="526" y="146" class="sv-t">lp-master</text>
       <text x="526" y="172" class="sv-s">control plane</text>
       <rect x="526" y="196" width="326" height="40" rx="8" fill="#eef1fd"/><text x="542" y="222" fill="#3b4fd8">API server</text>
       <rect x="526" y="244" width="326" height="40" rx="8" fill="#eef1fd"/><text x="542" y="270" fill="#3b4fd8">etcd</text>
       <rect x="526" y="292" width="326" height="40" rx="8" fill="#eef1fd"/><text x="542" y="318" fill="#3b4fd8">scheduler, controller manager</text>
 
-      <rect x="894" y="108" width="370" height="252" rx="14" fill="#fff" stroke="#0f766e" stroke-width="2"/>
+      <rect x="894" y="108" width="370" height="300" rx="14" fill="#fff" stroke="#0f766e" stroke-width="2"/>
       <text x="916" y="146" class="sv-t">lp-worker-1</text>
       <text x="916" y="172" class="sv-s">nodo worker</text>
       <rect x="916" y="196" width="326" height="40" rx="8" fill="#effaf8"/><text x="932" y="222" fill="#0f766e">frontend, auth-service</text>
       <rect x="916" y="244" width="326" height="40" rx="8" fill="#effaf8"/><text x="932" y="270" fill="#0f766e">redirect-service</text>
       <rect x="916" y="292" width="326" height="40" rx="8" fill="#fdf8ec"/><text x="932" y="318" fill="#b45309">PostgreSQL</text>
+      <rect x="916" y="340" width="326" height="40" rx="8" fill="#fcf1f6"/><text x="932" y="366" fill="#be185d">Jenkins (CI/CD)</text>
 
-      <rect x="1284" y="108" width="370" height="252" rx="14" fill="#fff" stroke="#0f766e" stroke-width="2"/>
+      <rect x="1284" y="108" width="370" height="300" rx="14" fill="#fff" stroke="#0f766e" stroke-width="2"/>
       <text x="1306" y="146" class="sv-t">lp-worker-2</text>
       <text x="1306" y="172" class="sv-s">nodo worker</text>
       <rect x="1306" y="196" width="326" height="40" rx="8" fill="#effaf8"/><text x="1322" y="222" fill="#0f766e">links-service, analytics-service</text>
@@ -294,10 +295,10 @@
       <rect x="1306" y="292" width="326" height="40" rx="8" fill="#fdf8ec"/><text x="1322" y="318" fill="#b45309">Redis, RabbitMQ</text>
     </g>
 
-    <rect x="504" y="384" width="1150" height="64" rx="12" fill="#f0f9fb" stroke="#0891b2" stroke-width="2"/>
-    <text x="1079" y="423" text-anchor="middle" class="sv-t" style="fill:#0e7490; font-size:19px">Rete dei pod (Flannel) e Ingress</text>
+    <rect x="504" y="432" width="1150" height="64" rx="12" fill="#f0f9fb" stroke="#0891b2" stroke-width="2"/>
+    <text x="1079" y="471" text-anchor="middle" class="sv-t" style="fill:#0e7490; font-size:19px">Rete dei pod (Flannel) e Ingress</text>
   </svg>
-  <p class="note" style="margin-top:20px">Le immagini dei servizi vengono costruite con Docker e scaricate dai nodi; la configurazione dei servizi è descritta con manifest Kubernetes.</p>
+  <p class="note" style="margin-top:20px">Jenkins, nel cluster, esegue i test, costruisce le immagini Docker e aggiorna i servizi, descritti con manifest Kubernetes.</p>
   <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
 </section>
 
@@ -395,6 +396,7 @@
       <tr><td>RabbitMQ</td><td>container nel cluster</td><td>Amazon MQ</td></tr>
       <tr><td>Immagini</td><td>GitHub Container Registry</td><td>Amazon ECR</td></tr>
       <tr><td>Monitoraggio</td><td>metrics-server</td><td>CloudWatch e SNS</td></tr>
+      <tr><td>CI/CD</td><td>Jenkins nel cluster</td><td>GitHub Actions</td></tr>
     </tbody>
   </table>
   <p class="note">Il codice dei servizi resta lo stesso: cambiano solo gli indirizzi di database, cache e coda nella configurazione.</p>
@@ -407,8 +409,9 @@
   <div class="bar"></div>
   <div class="stack">
     <div><h2 style="color:#6d28d9">Terraform</h2><p>In locale crea le macchine virtuali su Multipass. Su AWS crea la rete, il cluster EKS, il database, la cache, la coda e gli allarmi; lo stato è salvato su S3.</p></div>
-    <div><h2 style="color:#b91c1c">Ansible</h2><p>Installa e configura Kubernetes sulle macchine virtuali e distribuisce l'applicazione nel cluster, sia in locale sia su EKS.</p></div>
-    <div><h2>GitHub Actions</h2><p>A ogni pull request esegue i test e la build delle immagini. Dopo il merge su <code>main</code> pubblica le immagini su ECR e aggiorna il cluster.</p></div>
+    <div><h2 style="color:#b91c1c">Ansible</h2><p>Installa Kubernetes e Jenkins sulle macchine virtuali e distribuisce l'applicazione nel cluster, sia in locale sia su EKS.</p></div>
+    <div><h2 style="color:#be185d">Jenkins (locale)</h2><p>Gira nel cluster locale e controlla periodicamente il repository: a ogni modifica su <code>main</code> esegue i test, costruisce le immagini e aggiorna il cluster.</p></div>
+    <div><h2>GitHub Actions (AWS)</h2><p>A ogni pull request esegue i test e la build delle immagini. Dopo il merge su <code>main</code> pubblica le immagini su ECR e aggiorna il cluster EKS.</p></div>
   </div>
   <div class="foot"><span>LinkPulse – Giuseppe Russo</span><span class="num"></span></div>
 </section>
