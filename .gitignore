@@ -34,7 +34,5 @@ terraform.tfvars
 *.retry
 inventory.generated.ini
 
-# Editor e sistema
-.vscode/
-.idea/
+# Sistema
 .DS_Store
