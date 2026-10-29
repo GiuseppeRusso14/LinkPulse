@@ -17,6 +17,8 @@ Corso di Laurea Magistrale in Informatica · Università degli Studi di Catania 
 ![AWS](https://img.shields.io/badge/AWS-232F3E?logo=amazonwebservices&logoColor=white)
 ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=white)
 ![Ansible](https://img.shields.io/badge/Ansible-EE0000?logo=ansible&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?logo=jenkins&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
 
 </div>
 
@@ -80,9 +82,11 @@ Il redirect non attende il salvataggio del click: l'evento resta in coda finché
 | Cache | Redis nel cluster | Amazon ElastiCache for Redis |
 | Coda di messaggi | RabbitMQ nel cluster | Amazon MQ for RabbitMQ |
 | Registry delle immagini | GitHub Container Registry | Amazon ECR |
-| Monitoraggio | — | Amazon CloudWatch + SNS |
+| Monitoraggio | metrics-server | Amazon CloudWatch + SNS |
 | Infrastructure as Code | Terraform + Ansible | Terraform + Ansible |
-| CI/CD | GitHub Actions | GitHub Actions |
+| CI/CD | Jenkins nel cluster | GitHub Actions |
+
+In locale la pipeline gira su **Jenkins**, installato nel cluster: controlla periodicamente il repository e, a ogni modifica su `main`, esegue i test, costruisce le immagini e aggiorna il cluster. Su AWS lo stesso ruolo è svolto da **GitHub Actions**, così il confronto tra una pipeline self-hosted e un servizio gestito è parte del progetto.
 
 ## Argomenti del corso affrontati
 
@@ -94,7 +98,7 @@ Il redirect non attende il salvataggio del click: l'evento resta in coda finché
 - **Alta disponibilità** su più Availability Zone e Auto Scaling
 - **Comunicazione asincrona** tra microservizi tramite code di messaggi
 - **Monitoraggio e notifiche** con CloudWatch e SNS
-- **CI/CD** con GitHub Actions
+- **CI/CD** con Jenkins in locale e GitHub Actions su AWS
 
 ## Stato del progetto
 
@@ -103,8 +107,9 @@ Il redirect non attende il salvataggio del click: l'evento resta in coda finché
 | Progettazione e presentazione del progetto | ✅ Completata |
 | Microservizi e frontend | 🔄 In corso |
 | Deployment su Kubernetes locale | ⏳ Da fare |
+| Pipeline CI/CD locale con Jenkins | ⏳ Da fare |
 | Deployment su AWS | ⏳ Da fare |
-| Pipeline CI/CD | ⏳ Da fare |
+| Pipeline CI/CD su AWS con GitHub Actions | ⏳ Da fare |
 
 Il repository viene aggiornato man mano che il lavoro procede.
 
